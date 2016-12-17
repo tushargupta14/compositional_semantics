@@ -121,3 +121,8 @@ def read_context_words(path_to_context_words):
     fp.close()
         
     return set_context_word_count, set_word_count
+
+
+if __name__ == "__main__" :
+
+	read_context_words("/home/du3/13CS30045/lazaridou/")
