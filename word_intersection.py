@@ -26,12 +26,12 @@ def suffix_counts(path_to_files) :
 	print len(suffix_dict_with_counts)			
 	
 	count = 0 
-	for key,value in suffix_dict_with_counts.iteritems():
-		print key,value 
-		count+=1
-		if count == 1:
-			break 			
-	print w_c 
+	#for key,value in suffix_dict_with_counts.iteritems():
+		#print key,value 
+		#count+=1
+		#if count == 1:
+			#break 			
+	#print w_c 
 
 	with open("suffix_dict_with_counts.json","wb+") as f:
 		json.dump(suffix_dict_with_counts,f)

@@ -10,17 +10,35 @@ def co_occurence_matrix_suffixes(path_to_files) :
 
 # Builds the co_occurence matrix for the suffiexs 
 # Takes input suffix_dict_with_counts.json
-	dict_co_occurence_derived_word_context_word_adjacency_list = defaultdict(lambda: defaultdict(int))
+	dict_co_occurence_suffix_context_word_adjacency_list = defaultdict(lambda: defaultdict(int))
+	input_file = open(path_to_files+"suffix_dict_with_counts.json","rb+")
+	suffix_dict = json.load(input_file)
+	input_file.close()
+	count =0
+	print "Suffix Dict loaded"
 
-	suffix_dict = json.load(path_to_files+"suffix_dict_with_counts.json","rb+")
+	fp1 = open(path_to_files+"derived_co_occurence_matrix.json","rb+")
+	dict_co_occurence_derived_word_context_word_adjacency_list = json.load(fp1)
+	fp1.close()
 
-	dict_co_occurence_derived_word_context_word_adjacency_list = josn.load(path_to_files+"derived_co_occurence_matrix.json")
-	for suffix,derived_list in suffix_dict.iterkeys():
+	print "Derived word dict loaded"
+	for suffix,derived_list in suffix_dict.iteritems() : 
         	for derived_word in derived_list:
-            		for k,v in dict_co_occurence_derived_word_context_word_adjacency_list[derived_word]:
-                		dict_co_occurence_suffix_context_word_adjacency_list[suffix][k] += v
 
+			try :
+            			for k,v in dict_co_occurence_derived_word_context_word_adjacency_list[derived_word[0]].iteritems():
+			
+             	   			dict_co_occurence_suffix_context_word_adjacency_list[suffix][k] += int(v)
+			except KeyError : 
+				# the derived was not present orignally in wiktioanry so didnot come into the suffix_dict_derived_words but i spresent in the corpus . 
+				print "keyerror",derived_word
+		count+=1
+		print count
+	print len(dict_co_occurence_derived_word_context_word_adjacency_list)
 	
+	out_file = open("suffix_co_occurence_matrix.json","wb+")
+	json.dump(dict_co_occurence_suffix_context_word_adjacency_list,out_file)
+	out_file.close()
 
 
 
@@ -32,7 +50,7 @@ def co_occurence_matrix(path_to_files) :
     dict_co_occurence_source_word_context_word_adjacency_list = defaultdict(lambda: defaultdict(int))
     #dict_co_occurence_suffix_context_word_adjacency_list = defaultdict(lambda: defaultdict(int))
     dict_co_occurence_derived_word_context_word_adjacency_list = defaultdict(lambda: defaultdict(int))
-    #dict_pmi = defaultdict(lambda: defaultdict(int))
+   
     
     with open(path_to_files+"source_list_with_counts.csv") as f :
 	set_source_words = set()
@@ -68,7 +86,10 @@ def co_occurence_matrix(path_to_files) :
 
             if count%100==0 :
 		 print count  
-            #print count    
+            #print count
+	    continue   
+
+            ######## 
             for i in xrange(int_window_size, len_row - int_window_size):
                 
                 if row[i] not in set_source_words and row[i] not in set_derived_words:
@@ -90,17 +111,19 @@ def co_occurence_matrix(path_to_files) :
                                 else:
                                     print "Error: ", row[i]
                                     continue
-	    
-     	fp = open("source_co_occurence_matrix.json","wb+")  	         
-     	json.dump(dict_co_occurence_source_word_context_word_adjacency_list,fp)
+	 
+	print total_word_count,"total-word_count"
+   
+     	#fp = open("source_co_occurence_matrix.json","wb+")  	         
+     	#json.dump(dict_co_occurence_source_word_context_word_adjacency_list,fp)
 	
-     	fp.close()
+     	#fp.close()
 
-     	fp = open("derived_co_occurence_matrix.json","wb+")
-     	json.dump(dict_co_occurence_derived_word_context_word_adjacency_list,fp) 
-     	fp.close()
+     	#fp = open("derived_co_occurence_matrix.json","wb+")
+     	#json.dump(dict_co_occurence_derived_word_context_word_adjacency_list,fp) 
+     	#fp.close()
 	
-	print len(dict_co_occurence_derived_word_context_word_adjacency_list),len(dict_co_occurence_source_word_context_word_adjacency_list)
+	#print len(dict_co_occurence_derived_word_context_word_adjacency_list),len(dict_co_occurence_source_word_context_word_adjacency_list)
 
 if __name__ == "__main__" :
 
