@@ -62,7 +62,7 @@ def cal_pmi(path_to_files):
                 	for context_word, mutual_count in derived_co_occurence_dict[derived_word].iteritems():
 				try :
                         		dict_pmi[derived_word][context_word] = max(math.log((float(mutual_count*total_word_count))/ind_count*context_word_count[context_word], 2),0)
-				except Error as e :
+				except Exception as e :
 					print "context_word error:",context_word
 					log_file.write("{},{}+\n".format(e,context_word))
 		except KeyError :
@@ -85,11 +85,11 @@ def cal_pmi(path_to_files):
                 	for context_word, mutual_count in source_co_occurence_dict[source_word].iteritems():
 				try :
                         		dict_pmi[source_word][context_word] = max(math.log((float(mutual_count*total_word_count))/ind_count*context_word_count[context_word], 2), 0)
-				except Error as e :
+				except Exception as e :
 					print "context_word error:",context_word
                                         log_file.write("{},{}+\n".format(e,context_word))
 					
-		except Error as e :
+		except Exception as e :
 			log_file.write(source_word+"\n")
 
 		if count%100 ==0 :
@@ -109,7 +109,7 @@ def cal_pmi(path_to_files):
 		 	for context_word, mutual_count in suffix_co_occurence_dict[suffix].iteritems():
 				try :
 					dict_pmi[suffix][context_word] = max(math.log((float(mutual_count*total_word_count))/ind_count*context_word_count[context_word], 2), 0)
-				except Error as e :
+				except Exception as e :
 					print "context_word error:",context_word
                                         log_file.write("{},{}+\n".format(e,context_word))
 		except KeyError as e :
