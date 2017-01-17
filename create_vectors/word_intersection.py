@@ -76,4 +76,4 @@ def word_intersection(path_to_files) :
 	fp2.close()
 if __name__ == "__main__" :
 
-	suffix_counts("/home/du3/13CS30045/lazaridou/")	
+	word_intersection("/home/du3/13CS30045/affix_final/lazaridou/create_vectors/data_files/")	

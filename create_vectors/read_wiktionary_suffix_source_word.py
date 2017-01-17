@@ -53,7 +53,7 @@ def read_wiktionary_suffix_source_word(path_to_suffix_list):
                 
                 dict_suffix_derived_words[suffix].append(row[1])
                 set_source_words.add(row[2])
-                set_derived_words.append(row[2])
+                set_derived_words.add(row[1])
         print count, corrupt
     fp = open("suffixes.csv", "wb+")
     
@@ -84,4 +84,4 @@ def read_wiktionary_suffix_source_word(path_to_suffix_list):
 
 if __name__ == "__main__":
 		
-	read_wiktionary_affix_source_word()
+	read_wiktionary_suffix_source_word("/home/du3/13CS30045/affix_final/wiktionary/results_dec_2/")

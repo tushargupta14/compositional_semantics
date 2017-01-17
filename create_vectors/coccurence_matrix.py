@@ -64,9 +64,8 @@ def co_occurence_matrix(path_to_files) :
         set_context_words = { line.split(",")[0] for line in f }    
 
 
-    print len(set_source_words),len(set_derived_words)
-	
-    
+    print len(set_context_words),len(set_derived_words)
+	 
 
     total_word_count = 0
     int_window_size = 2 
@@ -86,8 +85,7 @@ def co_occurence_matrix(path_to_files) :
 
             if count%100==0 :
 		 print count  
-            #print count
-	    continue   
+            #print count   
 
             ######## 
             for i in xrange(int_window_size, len_row - int_window_size):
@@ -127,7 +125,7 @@ def co_occurence_matrix(path_to_files) :
 
 if __name__ == "__main__" :
 
-	co_occurence_matrix("/home/du3/13CS30045/affix_final/lazaridou/create_vectors/data_files/")
+	co_occurence_matrix_suffixes("/home/du3/13CS30045/affix_final/lazaridou/create_vectors/data_files/")
     	
 
 
