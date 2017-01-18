@@ -5,7 +5,7 @@
 
 import numpy as np
 import json
-
+from convert_to_Rdata import *
 def generate_suffix_row_matrix_from_vectors(context_word_list,s_vec):
 
 	source_X = []
@@ -32,7 +32,7 @@ def generate_affix_row_matrix_from_vectors(context_word_list,affix_vec):
 
 
 	
-def create_matrix_for_affix(path_to_files,affix):
+def create_matrix_for_affix(path_to_files,source_pmi_dict,derived_pmi_dict,word_file,affix):
 
 	# Take all the source words 
 	# Take all the derived words 
@@ -40,23 +40,24 @@ def create_matrix_for_affix(path_to_files,affix):
 	# Take all the context words 
 	# Make a numpy array 
 
-	context_file = open(path_to_files+"context_word.csv")
-	context_word_list = [line.split(",")[0] for line in context_file]
+	#context_file = open(path_to_files+"context_word.csv")
+	#context_word_list = [line.split(",")[0] for line in context_file]
 	
-	dim = len(context_word_list)
+	#dim = len(context_word_list)
 
-	context_file.close()
+	#context_file.close()
 
 	word_file = open("source_derived_words_stats.csv","rb+")
 	
 	derived_Y = []
 	source_X = []
 	count = 0
-  	source_pmi_dict = json.load(open(path_to_files+"source_pmi_350dim.json","rb+"))
+  	#source_pmi_dict = json.load(open(path_to_files+"source_pmi_350dim.json","rb+"))
 
-	derived_pmi_dict = json.load(open(path_to_files+"derived_pmi_350dim.json","rb+"))
+	#derived_pmi_dict = json.load(open(path_to_files+"derived_pmi_350dim.json","rb+"))
 	print "Dictioanry loaded"
 	
+	target_dir = "/home/du3/13CS30045/affix_final/plsr_new/pls/data/lexfunc/"
 	counter = 0
 	for line in word_file :
 
@@ -76,43 +77,16 @@ def create_matrix_for_affix(path_to_files,affix):
 		else :
 			continue
 
-	"""derived_pmi_dict = json.load(open(path_to_files+"derived_pmi_350dim.json","rb+"))
-        print "Dictioanry loaded"
-	word_file.close()
-	word_file = open("source_derived_words_stats.csv","rb+")
-
-	print 'for derived words'
-	counter = 0
-        for line in word_file :
-		#print(str(counter)+'/'+str(len(word_file)))
-		#counter+=1
-                line_split = line.split(",")
-                line_affix = line_split[0]
-
-                if affix == line_affix :
-           #             source_word = line_split[1]
-                        derived_word = line_split[3]
-
-                        if  derived_word in derived_pmi_dict :
-                           #     s_vec = pmi_dict[source_word]
-                                d_vec = derived_pmi_dict[derived_word]
-                            #    source_X.append(generate_suffix_row_matrix_from_vecto$
-                                derived_Y.append(d_vec)
-                                count+=1
-                else :
-                      	continue
-
-	"""
-	print len(source_X[0]),count	
+	#print len(source_X[0]),count	
 	source_X = np.array(source_X,dtype =np.float32)
 	derived_Y = np.array(derived_Y,dtype = np.float32)
-	
+	convert_to_Rdata(affix,source_X,derived_Y)
 
-	np.save('source_350_X.npy',source_X)
-	np.save('derived_350_Y.npy',derived_Y)
-	np.savetxt('source_350_X.txt',source_X)
-	np.savetxt('derived_350_Y.txt',derived_Y)
-	print source_X.shape,derived_Y.shape
+	np.save(target_dir+affix+'_source_350_X.npy',source_X)
+	np.save(target_dir+affix+'_derived_350_Y.npy',derived_Y)
+	#np.savetxt(target_dir+affix+'_source_350_X.txt',source_X)
+	#np.savetxt(target_dir+affix+'_derived_350_Y.txt',derived_Y)
+	print affix,source_X.shape,derived_Y.shape
 
 if __name__ == "__main__" :
 
