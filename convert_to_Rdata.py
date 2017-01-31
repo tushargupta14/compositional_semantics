@@ -1,3 +1,5 @@
+# Stores the matrices in R format for loading in the model. This script is called from the implement plsr model 
+
 import readline
 import numpy as np
 from rpy2.robjects import r
