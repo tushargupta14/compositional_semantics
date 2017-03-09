@@ -6,4 +6,6 @@
 *.py~
 *.swp
 *.npy
-nimfa/ 
+nimfa/* 
+
+

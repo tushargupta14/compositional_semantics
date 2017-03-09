@@ -1,3 +1,5 @@
+# Script creates lexfunc matrices for affixes for lazaridou vectors. It is used as a wrapper for create_matrix.py
+
 import sys
 #sys.path.insert(0, '')
 

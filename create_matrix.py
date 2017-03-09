@@ -57,7 +57,7 @@ def create_matrix_for_affix(path_to_files,source_pmi_dict,derived_pmi_dict,word_
 	#derived_pmi_dict = json.load(open(path_to_files+"derived_pmi_350dim.json","rb+"))
 	print "Dictioanry loaded"
 	
-	target_dir = "/home/du3/13CS30045/affix_final/plsr_new/pls/data/lexfunc/"
+	target_dir = "/home/du3/13CS30045/affix_final/plsr_new/pls/data/lazaridou_lexfunc_model_input/"
 	counter = 0
 	for line in word_file :
 
@@ -80,13 +80,18 @@ def create_matrix_for_affix(path_to_files,source_pmi_dict,derived_pmi_dict,word_
 	#print len(source_X[0]),count	
 	source_X = np.array(source_X,dtype =np.float32)
 	derived_Y = np.array(derived_Y,dtype = np.float32)
-	convert_to_Rdata(affix,source_X,derived_Y)
+	#convert_to_Rdata(affix,source_X,derived_Y)
 
 	np.save(target_dir+affix+'_source_350_X.npy',source_X)
 	np.save(target_dir+affix+'_derived_350_Y.npy',derived_Y)
 	#np.savetxt(target_dir+affix+'_source_350_X.txt',source_X)
 	#np.savetxt(target_dir+affix+'_derived_350_Y.txt',derived_Y)
-	print affix,source_X.shape,derived_Y.shape
+	#print affix,source_X.shape,derived_Y.shape
+	print source_X
+
+#create_matrix_fulladd():
+	
+
 
 if __name__ == "__main__" :
 

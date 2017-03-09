@@ -1,10 +1,12 @@
 # Script creates matrix for the fulladd model. All the matrix are for the full corpus 
 # Input : source_derived_stats.csv
 # Output : matrix A : source_word; B : suffix; C : derived_word 
+# also converts to R Data 
+
 
 import numpy as np
 import json
-
+from convert_to_Rdata import *
 
 def create_matrix_fulladd(path_to_files):
 
@@ -59,6 +61,9 @@ def create_matrix_fulladd(path_to_files):
 	np.save(target_dir+'fulladd_affix_350_B.npy',affix_B)
 	
 	print defaulter
+
+	convert_to_Rdata_fulladd(source_A,derived_C,affix_B)
+
 
 if __name__ == "__main__" :
 	
